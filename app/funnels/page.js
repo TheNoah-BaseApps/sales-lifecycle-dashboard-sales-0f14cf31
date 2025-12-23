@@ -9,6 +9,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/components/ui/use-toast';
 import { Search, Plus, Filter, DollarSign, Calendar, User } from 'lucide-react';
 
 function FunnelsContent() {
@@ -18,6 +24,25 @@ function FunnelsContent() {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [stageFilter, setStageFilter] = useState('all');
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const [formData, setFormData] = useState({
+    company_name: '',
+    contact_name: '',
+    contact_email: '',
+    stage: '',
+    value: '',
+    probability: '',
+    expected_revenue: '',
+    creation_date: '',
+    expected_close_date: '',
+    team_member: '',
+    progress_to_won: '',
+    last_interacted_on: '',
+    next_step: '',
+  });
 
   useEffect(() => {
     fetchFunnels();
@@ -44,6 +69,71 @@ function FunnelsContent() {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSelectChange = (name, value) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      setSubmitting(true);
+      const token = localStorage.getItem('token');
+      
+      const response = await fetch('/api/funnels', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create funnel');
+      }
+
+      toast({
+        title: 'Success',
+        description: 'Funnel opportunity created successfully',
+      });
+
+      setShowAddModal(false);
+      setFormData({
+        company_name: '',
+        contact_name: '',
+        contact_email: '',
+        stage: '',
+        value: '',
+        probability: '',
+        expected_revenue: '',
+        creation_date: '',
+        expected_close_date: '',
+        team_member: '',
+        progress_to_won: '',
+        last_interacted_on: '',
+        next_step: '',
+      });
+      
+      fetchFunnels();
+    } catch (err) {
+      console.error('Error creating funnel:', err);
+      toast({
+        title: 'Error',
+        description: err.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -89,7 +179,7 @@ function FunnelsContent() {
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">Sales Funnel</h1>
                 <p className="text-gray-600">Pipeline management and deal tracking</p>
               </div>
-              <Button>
+              <Button onClick={() => setShowAddModal(true)}>
                 <Plus className="h-4 w-4 mr-2" />
                 Add Opportunity
               </Button>
@@ -141,7 +231,7 @@ function FunnelsContent() {
                   <DollarSign className="h-12 w-12 text-gray-400 mb-4" />
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">No opportunities found</h3>
                   <p className="text-gray-600 mb-4">Start by adding your first sales opportunity</p>
-                  <Button>
+                  <Button onClick={() => setShowAddModal(true)}>
                     <Plus className="h-4 w-4 mr-2" />
                     Add Opportunity
                   </Button>
@@ -225,6 +315,184 @@ function FunnelsContent() {
           </div>
         </main>
       </div>
+
+      <Dialog open={showAddModal} onOpenChange={setShowAddModal}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Add New Opportunity</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="company_name">Company Name *</Label>
+                <Input
+                  id="company_name"
+                  name="company_name"
+                  value={formData.company_name}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="contact_name">Contact Name</Label>
+                <Input
+                  id="contact_name"
+                  name="contact_name"
+                  value={formData.contact_name}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="contact_email">Contact Email</Label>
+                <Input
+                  id="contact_email"
+                  name="contact_email"
+                  type="email"
+                  value={formData.contact_email}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="stage">Stage *</Label>
+                <Select
+                  value={formData.stage}
+                  onValueChange={(value) => handleSelectChange('stage', value)}
+                  required
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select stage" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {stages.map(stage => (
+                      <SelectItem key={stage} value={stage}>{stage}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="value">Deal Value</Label>
+                <Input
+                  id="value"
+                  name="value"
+                  value={formData.value}
+                  onChange={handleInputChange}
+                  placeholder="e.g., $50,000"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="probability">Probability (%)</Label>
+                <Input
+                  id="probability"
+                  name="probability"
+                  value={formData.probability}
+                  onChange={handleInputChange}
+                  placeholder="e.g., 75%"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="expected_revenue">Expected Revenue</Label>
+                <Input
+                  id="expected_revenue"
+                  name="expected_revenue"
+                  value={formData.expected_revenue}
+                  onChange={handleInputChange}
+                  placeholder="e.g., $37,500"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="team_member">Team Member</Label>
+                <Input
+                  id="team_member"
+                  name="team_member"
+                  value={formData.team_member}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="creation_date">Creation Date</Label>
+                <Input
+                  id="creation_date"
+                  name="creation_date"
+                  type="date"
+                  value={formData.creation_date}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="expected_close_date">Expected Close Date</Label>
+                <Input
+                  id="expected_close_date"
+                  name="expected_close_date"
+                  type="date"
+                  value={formData.expected_close_date}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="last_interacted_on">Last Interaction Date</Label>
+                <Input
+                  id="last_interacted_on"
+                  name="last_interacted_on"
+                  type="date"
+                  value={formData.last_interacted_on}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="progress_to_won">Progress to Won (%)</Label>
+                <Input
+                  id="progress_to_won"
+                  name="progress_to_won"
+                  value={formData.progress_to_won}
+                  onChange={handleInputChange}
+                  placeholder="e.g., 60%"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="next_step">Next Step</Label>
+              <Textarea
+                id="next_step"
+                name="next_step"
+                value={formData.next_step}
+                onChange={handleInputChange}
+                rows={3}
+                placeholder="Describe the next action or milestone..."
+              />
+            </div>
+
+            <div className="flex justify-end gap-3 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setShowAddModal(false)}
+                disabled={submitting}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" disabled={submitting}>
+                {submitting ? 'Creating...' : 'Create Opportunity'}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
