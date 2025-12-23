@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { BarChart3, TrendingUp, Users, ArrowRight, Mail, Inbox, Phone, MessageSquare, Target, Star } from 'lucide-react';
+import { BarChart3, TrendingUp, Users, ArrowRight, Mail, Inbox, Phone, MessageSquare, Target, Star, Search, Megaphone, Filter } from 'lucide-react';
 
 export default function HomePage() {
   const router = useRouter();
@@ -163,6 +163,51 @@ export default function HomePage() {
               <Link href="/reviews">
                 <Button variant="outline" className="w-full">
                   View Reviews <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+
+            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                <Search className="h-6 w-6 text-indigo-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Research</h3>
+              <p className="text-gray-600 mb-4">
+                Lead intelligence and market analysis
+              </p>
+              <Link href="/research">
+                <Button variant="outline" className="w-full">
+                  View Research <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+
+            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+              <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
+                <Megaphone className="h-6 w-6 text-pink-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Campaigns</h3>
+              <p className="text-gray-600 mb-4">
+                Marketing campaign tracking and analytics
+              </p>
+              <Link href="/campaigns">
+                <Button variant="outline" className="w-full">
+                  View Campaigns <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+
+            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
+                <Filter className="h-6 w-6 text-emerald-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Sales Funnel</h3>
+              <p className="text-gray-600 mb-4">
+                Pipeline management and deal tracking
+              </p>
+              <Link href="/funnels">
+                <Button variant="outline" className="w-full">
+                  View Pipeline <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
             </div>

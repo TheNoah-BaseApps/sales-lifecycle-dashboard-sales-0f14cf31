@@ -401,6 +401,247 @@
         }
       }
     },
+    "/api/campaigns/{id}": {
+      "get": {
+        "summary": "Get a single campaign by ID",
+        "tags": [
+          "Campaigns"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Campaign details"
+          },
+          "404": {
+            "description": "Campaign not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a campaign",
+        "tags": [
+          "Campaigns"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Campaign updated successfully"
+          },
+          "404": {
+            "description": "Campaign not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a campaign",
+        "tags": [
+          "Campaigns"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Campaign deleted successfully"
+          },
+          "404": {
+            "description": "Campaign not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/campaigns": {
+      "get": {
+        "summary": "Get all campaigns",
+        "description": "Retrieve all marketing campaign data with pagination support",
+        "tags": [
+          "Campaigns"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of campaigns",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new campaign",
+        "description": "Add a new marketing campaign record to the database",
+        "tags": [
+          "Campaigns"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "campaign_name"
+                ],
+                "properties": {
+                  "campaign_name": {
+                    "type": "string"
+                  },
+                  "campaign_type": {
+                    "type": "string"
+                  },
+                  "channel": {
+                    "type": "string"
+                  },
+                  "likes": {
+                    "type": "integer"
+                  },
+                  "comments": {
+                    "type": "integer"
+                  },
+                  "budget": {
+                    "type": "string"
+                  },
+                  "budget_remaining": {
+                    "type": "string"
+                  },
+                  "impressions": {
+                    "type": "integer"
+                  },
+                  "open_rate": {
+                    "type": "string"
+                  },
+                  "clicks": {
+                    "type": "integer"
+                  },
+                  "cta": {
+                    "type": "string"
+                  },
+                  "roi": {
+                    "type": "string"
+                  },
+                  "engagement_rate": {
+                    "type": "string"
+                  },
+                  "cart_abandonment": {
+                    "type": "integer"
+                  },
+                  "total_purchase": {
+                    "type": "string"
+                  },
+                  "avg_purchase_value": {
+                    "type": "string"
+                  },
+                  "website_visits_count": {
+                    "type": "integer"
+                  },
+                  "store_visits_count": {
+                    "type": "integer"
+                  },
+                  "ecommerce_visits_count": {
+                    "type": "integer"
+                  },
+                  "social_visit_counts": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Campaign created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
     "/api/chat-interactions/{id}": {
       "get": {
         "summary": "Get a chat interaction by ID",
@@ -1172,6 +1413,230 @@
         }
       }
     },
+    "/api/funnels/{id}": {
+      "get": {
+        "summary": "Get a single funnel entry by ID",
+        "tags": [
+          "Funnels"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Funnel entry details"
+          },
+          "404": {
+            "description": "Funnel entry not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a funnel entry",
+        "tags": [
+          "Funnels"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Funnel entry updated successfully"
+          },
+          "404": {
+            "description": "Funnel entry not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a funnel entry",
+        "tags": [
+          "Funnels"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Funnel entry deleted successfully"
+          },
+          "404": {
+            "description": "Funnel entry not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/funnels": {
+      "get": {
+        "summary": "Get all funnel entries",
+        "description": "Retrieve all sales funnel data with pagination support",
+        "tags": [
+          "Funnels"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of funnel entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new funnel entry",
+        "description": "Add a new sales funnel record to the database",
+        "tags": [
+          "Funnels"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "company_name",
+                  "stage"
+                ],
+                "properties": {
+                  "company_name": {
+                    "type": "string"
+                  },
+                  "contact_name": {
+                    "type": "string"
+                  },
+                  "contact_email": {
+                    "type": "string"
+                  },
+                  "stage": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  },
+                  "probability": {
+                    "type": "string"
+                  },
+                  "expected_revenue": {
+                    "type": "string"
+                  },
+                  "creation_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "expected_close_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "team_member": {
+                    "type": "string"
+                  },
+                  "progress_to_won": {
+                    "type": "string"
+                  },
+                  "last_interacted_on": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "next_step": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Funnel entry created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
     "/api/login-signups/{id}": {
       "put": {
         "summary": "Update login signup",
@@ -1416,6 +1881,259 @@
         "responses": {
           "201": {
             "description": "Newsletter blog created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/research/{id}": {
+      "get": {
+        "summary": "Get a single research entry by ID",
+        "tags": [
+          "Research"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Research entry details"
+          },
+          "404": {
+            "description": "Research entry not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a research entry",
+        "tags": [
+          "Research"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Research entry updated successfully"
+          },
+          "404": {
+            "description": "Research entry not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a research entry",
+        "tags": [
+          "Research"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Research entry deleted successfully"
+          },
+          "404": {
+            "description": "Research entry not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/research": {
+      "get": {
+        "summary": "Get all research entries",
+        "description": "Retrieve all lead research data with pagination support",
+        "tags": [
+          "Research"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of research entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new research entry",
+        "description": "Add a new lead research record to the database",
+        "tags": [
+          "Research"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "lead_name"
+                ],
+                "properties": {
+                  "lead_name": {
+                    "type": "string"
+                  },
+                  "locations": {
+                    "type": "string"
+                  },
+                  "contact_address": {
+                    "type": "string"
+                  },
+                  "contact_email": {
+                    "type": "string"
+                  },
+                  "revenue": {
+                    "type": "string"
+                  },
+                  "ceo": {
+                    "type": "string"
+                  },
+                  "management_team": {
+                    "type": "string"
+                  },
+                  "public_or_private": {
+                    "type": "string"
+                  },
+                  "annual_revenue": {
+                    "type": "string"
+                  },
+                  "annual_profit_loss": {
+                    "type": "string"
+                  },
+                  "employee_count": {
+                    "type": "integer"
+                  },
+                  "stock_price": {
+                    "type": "string"
+                  },
+                  "products_or_services": {
+                    "type": "string"
+                  },
+                  "website": {
+                    "type": "string"
+                  },
+                  "linkedin_url": {
+                    "type": "string"
+                  },
+                  "facebook_url": {
+                    "type": "string"
+                  },
+                  "twitter_handle": {
+                    "type": "string"
+                  },
+                  "youtube_url": {
+                    "type": "string"
+                  },
+                  "social_posts": {
+                    "type": "string"
+                  },
+                  "quarterly_and_annual_documents": {
+                    "type": "string"
+                  },
+                  "quarterly_and_annual_summary": {
+                    "type": "string"
+                  },
+                  "news_textual": {
+                    "type": "string"
+                  },
+                  "social_insights": {
+                    "type": "string"
+                  },
+                  "legal": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Research entry created successfully"
           },
           "400": {
             "description": "Invalid input"

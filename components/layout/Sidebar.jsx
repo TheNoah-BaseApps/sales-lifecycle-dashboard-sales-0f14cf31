@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, Globe, Store, UserCheck, TrendingUp, Route, Users, Mail as MailIcon, Inbox as InboxIcon, Phone as PhoneIcon, MessageSquare, Target, Star } from 'lucide-react';
+import { LayoutDashboard, Globe, Store, UserCheck, TrendingUp, Route, Users, Mail as MailIcon, Inbox as InboxIcon, Phone as PhoneIcon, MessageSquare, Target, Star, Search, Megaphone, Filter } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -19,6 +19,9 @@ const navigation = [
   { name: 'Chat Interactions', href: '/chat-interactions', icon: MessageSquare },
   { name: 'Competitions', href: '/competitions', icon: Target },
   { name: 'Reviews', href: '/reviews', icon: Star },
+  { name: 'Research', href: '/research', icon: Search },
+  { name: 'Campaigns', href: '/campaigns', icon: Megaphone },
+  { name: 'Sales Funnel', href: '/funnels', icon: Filter },
 ];
 
 export default function Sidebar({ open }) {
