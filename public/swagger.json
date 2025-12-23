@@ -401,21 +401,16 @@
         }
       }
     },
-    "/api/contacts/journey/{identifier}": {
+    "/api/chat-interactions/{id}": {
       "get": {
-        "summary": "Get customer journey by contact identifier",
+        "summary": "Get a chat interaction by ID",
         "tags": [
-          "Contacts"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
+          "Chat Interactions"
         ],
         "parameters": [
           {
             "in": "path",
-            "name": "identifier",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "string"
@@ -424,7 +419,406 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Chat interaction details"
+          },
+          "404": {
+            "description": "Chat interaction not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a chat interaction",
+        "tags": [
+          "Chat Interactions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Chat interaction updated"
+          },
+          "404": {
+            "description": "Chat interaction not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a chat interaction",
+        "tags": [
+          "Chat Interactions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Chat interaction deleted"
+          },
+          "404": {
+            "description": "Chat interaction not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/chat-interactions": {
+      "get": {
+        "summary": "Get all chat interactions",
+        "description": "Retrieve a list of all chat interactions with optional filtering",
+        "tags": [
+          "Chat Interactions"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 100
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          },
+          {
+            "in": "query",
+            "name": "sentiment",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by sentiment (positive, negative, neutral)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of chat interactions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new chat interaction",
+        "description": "Add a new chat interaction record",
+        "tags": [
+          "Chat Interactions"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "time": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "email_ids": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "chat_duration": {
+                    "type": "string"
+                  },
+                  "conversation": {
+                    "type": "string"
+                  },
+                  "summary": {
+                    "type": "string"
+                  },
+                  "sentiment": {
+                    "type": "string"
+                  },
+                  "action_items": {
+                    "type": "string"
+                  },
+                  "purchase_intent_score": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Chat interaction created successfully"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/competitions/{id}": {
+      "get": {
+        "summary": "Get a competition entry by ID",
+        "tags": [
+          "Competitions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Competition entry details"
+          },
+          "404": {
+            "description": "Competition entry not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a competition entry",
+        "tags": [
+          "Competitions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Competition entry updated"
+          },
+          "404": {
+            "description": "Competition entry not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a competition entry",
+        "tags": [
+          "Competitions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Competition entry deleted"
+          },
+          "404": {
+            "description": "Competition entry not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/competitions": {
+      "get": {
+        "summary": "Get all competitions",
+        "description": "Retrieve a list of all competitive analysis records",
+        "tags": [
+          "Competitions"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 100
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of competitions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new competition entry",
+        "description": "Add a new competitive analysis record",
+        "tags": [
+          "Competitions"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "similar_tools"
+                ],
+                "properties": {
+                  "similar_tools": {
+                    "type": "string"
+                  },
+                  "web_url": {
+                    "type": "string"
+                  },
+                  "pricing": {
+                    "type": "string"
+                  },
+                  "features": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "website_visits_data": {
+                    "type": "string"
+                  },
+                  "social_data": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Competition entry created successfully"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -812,40 +1206,6 @@
         }
       }
     },
-    "/api/login-signups": {
-      "get": {
-        "summary": "Get all login signups",
-        "tags": [
-          "Login Signups"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
-      "post": {
-        "summary": "Create login signup",
-        "tags": [
-          "Login Signups"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          }
-        }
-      }
-    },
     "/api/newsletter-blogs/{id}": {
       "get": {
         "summary": "Get newsletter blog by ID",
@@ -1059,6 +1419,230 @@
           },
           "400": {
             "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/reviews/{id}": {
+      "get": {
+        "summary": "Get a review by ID",
+        "tags": [
+          "Reviews"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review details"
+          },
+          "404": {
+            "description": "Review not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a review",
+        "tags": [
+          "Reviews"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Review updated"
+          },
+          "404": {
+            "description": "Review not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a review",
+        "tags": [
+          "Reviews"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review deleted"
+          },
+          "404": {
+            "description": "Review not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/reviews": {
+      "get": {
+        "summary": "Get all reviews",
+        "description": "Retrieve a list of all product reviews",
+        "tags": [
+          "Reviews"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 100
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          },
+          {
+            "in": "query",
+            "name": "sentiment",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by sentiment"
+          },
+          {
+            "in": "query",
+            "name": "channel_name",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by channel name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of reviews",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new review",
+        "description": "Add a new product review record",
+        "tags": [
+          "Reviews"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "channel_name"
+                ],
+                "properties": {
+                  "channel_name": {
+                    "type": "string"
+                  },
+                  "channel_link": {
+                    "type": "string"
+                  },
+                  "reviewer_name": {
+                    "type": "string"
+                  },
+                  "product_review_count": {
+                    "type": "integer"
+                  },
+                  "competitive_product_review_count": {
+                    "type": "integer"
+                  },
+                  "summary": {
+                    "type": "string"
+                  },
+                  "sentiment": {
+                    "type": "string"
+                  },
+                  "pricing": {
+                    "type": "string"
+                  },
+                  "comments": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Review created successfully"
+          },
+          "400": {
+            "description": "Invalid request"
           },
           "500": {
             "description": "Server error"

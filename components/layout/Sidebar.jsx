@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, Globe, Store, UserCheck, TrendingUp, Route, Users, Mail as MailIcon, Inbox as InboxIcon, Phone as PhoneIcon } from 'lucide-react';
+import { LayoutDashboard, Globe, Store, UserCheck, TrendingUp, Route, Users, Mail as MailIcon, Inbox as InboxIcon, Phone as PhoneIcon, MessageSquare, Target, Star } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -16,6 +16,9 @@ const navigation = [
   { name: 'Newsletter Blogs', href: '/newsletter-blogs', icon: MailIcon },
   { name: 'Email Interactions', href: '/email-interactions', icon: InboxIcon },
   { name: 'Call Interactions', href: '/call-interactions', icon: PhoneIcon },
+  { name: 'Chat Interactions', href: '/chat-interactions', icon: MessageSquare },
+  { name: 'Competitions', href: '/competitions', icon: Target },
+  { name: 'Reviews', href: '/reviews', icon: Star },
 ];
 
 export default function Sidebar({ open }) {
