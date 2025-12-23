@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { BarChart3, TrendingUp, Users, ArrowRight } from 'lucide-react';
+import { BarChart3, TrendingUp, Users, ArrowRight, Mail, Inbox, Phone } from 'lucide-react';
 
 export default function HomePage() {
   const router = useRouter();
@@ -40,7 +40,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
           <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
               <BarChart3 className="h-6 w-6 text-blue-600" />
@@ -69,6 +69,58 @@ export default function HomePage() {
             <p className="text-gray-600">
               Visualize conversion rates and track individual customer journeys
             </p>
+          </div>
+        </div>
+
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            Workflows Overview
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                <Mail className="h-6 w-6 text-orange-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Newsletter Blogs</h3>
+              <p className="text-gray-600 mb-4">
+                Manage newsletter campaigns and blog distribution
+              </p>
+              <Link href="/newsletter-blogs">
+                <Button variant="outline" className="w-full">
+                  View Newsletters <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+
+            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+              <div className="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mb-4">
+                <Inbox className="h-6 w-6 text-cyan-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Email Interactions</h3>
+              <p className="text-gray-600 mb-4">
+                Track and analyze email communications with sentiment analysis
+              </p>
+              <Link href="/email-interactions">
+                <Button variant="outline" className="w-full">
+                  View Emails <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+
+            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+              <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
+                <Phone className="h-6 w-6 text-teal-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Call Interactions</h3>
+              <p className="text-gray-600 mb-4">
+                Log phone calls with AI-powered insights and purchase intent scoring
+              </p>
+              <Link href="/call-interactions">
+                <Button variant="outline" className="w-full">
+                  View Calls <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
 

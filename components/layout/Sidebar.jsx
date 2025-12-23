@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, Globe, Store, UserCheck, TrendingUp, Route, Users } from 'lucide-react';
+import { LayoutDashboard, Globe, Store, UserCheck, TrendingUp, Route, Users, Mail as MailIcon, Inbox as InboxIcon, Phone as PhoneIcon } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -13,6 +13,9 @@ const navigation = [
   { name: 'Analytics', href: '/analytics', icon: TrendingUp },
   { name: 'Customer Journey', href: '/customer-journey', icon: Route },
   { name: 'User Management', href: '/user-management', icon: Users },
+  { name: 'Newsletter Blogs', href: '/newsletter-blogs', icon: MailIcon },
+  { name: 'Email Interactions', href: '/email-interactions', icon: InboxIcon },
+  { name: 'Call Interactions', href: '/call-interactions', icon: PhoneIcon },
 ];
 
 export default function Sidebar({ open }) {

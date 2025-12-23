@@ -170,6 +170,237 @@
         }
       }
     },
+    "/api/call-interactions/{id}": {
+      "get": {
+        "summary": "Get call interaction by ID",
+        "description": "Retrieve a specific call interaction by ID",
+        "tags": [
+          "Call Interactions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Call interaction ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved call interaction"
+          },
+          "404": {
+            "description": "Call interaction not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update call interaction",
+        "description": "Update an existing call interaction",
+        "tags": [
+          "Call Interactions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Call interaction ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Call interaction updated successfully"
+          },
+          "404": {
+            "description": "Call interaction not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete call interaction",
+        "description": "Delete a call interaction by ID",
+        "tags": [
+          "Call Interactions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Call interaction ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Call interaction deleted successfully"
+          },
+          "404": {
+            "description": "Call interaction not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/call-interactions": {
+      "get": {
+        "summary": "Get all call interactions",
+        "description": "Retrieve a list of all call interactions with pagination and filtering",
+        "tags": [
+          "Call Interactions"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          },
+          {
+            "in": "query",
+            "name": "sentiment",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by sentiment"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved call interactions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new call interaction",
+        "description": "Create a new call interaction entry with AI analysis",
+        "tags": [
+          "Call Interactions"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "time": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string"
+                  },
+                  "email_ids": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "call_duration": {
+                    "type": "string"
+                  },
+                  "voice_recordings": {
+                    "type": "string"
+                  },
+                  "transcripts": {
+                    "type": "string"
+                  },
+                  "summary": {
+                    "type": "string"
+                  },
+                  "sentiment": {
+                    "type": "string"
+                  },
+                  "action_items": {
+                    "type": "string"
+                  },
+                  "purchase_intent_score": {
+                    "type": "integer"
+                  },
+                  "sales_highlights": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Call interaction created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
     "/api/contacts/journey/{identifier}": {
       "get": {
         "summary": "Get customer journey by contact identifier",
@@ -212,6 +443,240 @@
         "responses": {
           "200": {
             "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/email-interactions/{id}": {
+      "get": {
+        "summary": "Get email interaction by ID",
+        "description": "Retrieve a specific email interaction by ID",
+        "tags": [
+          "Email Interactions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Email interaction ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved email interaction"
+          },
+          "404": {
+            "description": "Email interaction not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update email interaction",
+        "description": "Update an existing email interaction",
+        "tags": [
+          "Email Interactions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Email interaction ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email interaction updated successfully"
+          },
+          "404": {
+            "description": "Email interaction not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete email interaction",
+        "description": "Delete an email interaction by ID",
+        "tags": [
+          "Email Interactions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Email interaction ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email interaction deleted successfully"
+          },
+          "404": {
+            "description": "Email interaction not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/email-interactions": {
+      "get": {
+        "summary": "Get all email interactions",
+        "description": "Retrieve a list of all email interactions with pagination and filtering",
+        "tags": [
+          "Email Interactions"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          },
+          {
+            "in": "query",
+            "name": "sentiment",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by sentiment"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved email interactions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new email interaction",
+        "description": "Create a new email interaction entry",
+        "tags": [
+          "Email Interactions"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "subject"
+                ],
+                "properties": {
+                  "email_ids": {
+                    "type": "string"
+                  },
+                  "email_domain": {
+                    "type": "string"
+                  },
+                  "subject": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "attachments": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string"
+                  },
+                  "thread": {
+                    "type": "string"
+                  },
+                  "summary": {
+                    "type": "string"
+                  },
+                  "sentiment": {
+                    "type": "string"
+                  },
+                  "sender_id": {
+                    "type": "string"
+                  },
+                  "receiver_id": {
+                    "type": "string"
+                  },
+                  "cc_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Email interaction created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -377,6 +842,226 @@
         "responses": {
           "201": {
             "description": "Created"
+          }
+        }
+      }
+    },
+    "/api/newsletter-blogs/{id}": {
+      "get": {
+        "summary": "Get newsletter blog by ID",
+        "description": "Retrieve a specific newsletter blog entry by ID",
+        "tags": [
+          "Newsletter Blogs"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Newsletter blog ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved newsletter blog"
+          },
+          "404": {
+            "description": "Newsletter blog not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update newsletter blog",
+        "description": "Update an existing newsletter blog entry",
+        "tags": [
+          "Newsletter Blogs"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Newsletter blog ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Newsletter blog updated successfully"
+          },
+          "404": {
+            "description": "Newsletter blog not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete newsletter blog",
+        "description": "Delete a newsletter blog entry by ID",
+        "tags": [
+          "Newsletter Blogs"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Newsletter blog ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Newsletter blog deleted successfully"
+          },
+          "404": {
+            "description": "Newsletter blog not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/newsletter-blogs": {
+      "get": {
+        "summary": "Get all newsletter blogs",
+        "description": "Retrieve a list of all newsletter blog entries with pagination and filtering",
+        "tags": [
+          "Newsletter Blogs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by status"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved newsletter blogs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new newsletter blog",
+        "description": "Create a new newsletter blog entry",
+        "tags": [
+          "Newsletter Blogs"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "newsletter_name"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string"
+                  },
+                  "frequency": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "newsletter_name": {
+                    "type": "string"
+                  },
+                  "blogs": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Newsletter blog created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
